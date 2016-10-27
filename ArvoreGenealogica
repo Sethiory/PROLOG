@@ -1,0 +1,46 @@
+/*
+http://swish.swi-prolog.org/example/io.pl 
+*/
+
+/*gênero*/
+homem(thiago).
+homem(breno).
+homem(francisco).
+homem(joao).
+homem(pedro).
+homem(renato).
+mulher(maria).
+mulher(lucia).
+mulher(beatriz).
+mulher(monica).
+
+/*pais*/
+pais(X,Y) :- pai(X,Y).
+pais(X,Y) :- mae(X,Y).
+pai(francisco,breno).
+pai(renato,thiago).
+pai(joao,francisco).
+pai(joao,lucia).
+pai(pedro,monica).
+mae(monica,thiago).
+mae(monica,breno).
+mae(beatriz,monica).
+mae(maria,lucia).
+mae(maria,francisco).
+
+/*filhos*/
+filho(X,Y,Z) :- pai(Y,X),mae(Z,X),homem(X).
+filha(X,Y,Z) :- mulher(X),pai(Y,X),mae(Z,X).
+
+/*irmãos - acredito que esteja retornando duas vezes em alguns casos, pelo fato de estar 
+ * testando se são irmãos tanto por parte de pai quanto de mãe*/
+irmaos(A,B) :- pai(X,A),pai(X,B),A\=B;mae(X,A),mae(X,B),A\=B.
+
+/*tios - aqui deve ta retornado duas vezes pois herda a propriedade de irmãos, 
+esta que está inserida na definição da expressão*/
+tio(X,Y) :- irmaos(X,A),pai(A,Y),homem(X);irmaos(X,B),mae(B,Y),homem(X).
+tia(X,Y) :- irmaos(X,A),pai(A,Y),mulher(X);irmaos(X,B),mae(B,Y),mulher(X).
+
+/*avós */
+vó(X,Y) :- mae(X,A),pai(A,Y);mae(X,A),mae(A,Y).
+vô(X,Y) :- pai(X,A),pai(A,Y);pai(X,A),mae(A,Y).
