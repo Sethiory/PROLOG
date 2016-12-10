@@ -74,3 +74,29 @@ nota(mara,4.0).
 nota(mary,10.0).		
 
 situacao(X):-(nota(X,D),D>7,write("aprovado")),!;(nota(X,D),D<4.9,write("reprovado")),!;(nota(X,D),D>5,D<6.9,write("recuperacao")).
+
+%QUESTÃO 05
+filme('Amnesia',suspense,'Nolan',2000,113).
+filme('Babel',drama,'Inarritu',2006,142).
+filme('Capote',drama,'Miller',2005,98).
+filme('Casablanca',romance,'Curtiz',1942,102).
+filme('Matrix',ficção,'Wachowsk',1999,136).
+filme('Rebeca',suspense,'Hitchcock',1940,130).
+filme('Shrek',aventura,'Adamson',2001,90).
+filme('Sinais',ficção,'Shymalan',2002,106).
+filme('Spartacus',ação,'Kubrik',1960,184).
+filme('Superman',aventura,'Donner',1978,143).
+filme('Titanic',romance,'Cameron',1997,194).
+filme('Tubarão',suspense,'Spielberg',1975,124).
+filme('Volver',drama,'Almodóvar',2006,121).
+
+%X = quem dirige e Y = título do filme
+dirige(X,Y):- filme(Y,_,X,_,_).
+%X = genero e Y = título do filme
+genero(X,Y) :- filme(Y,X,_,_,_).
+%X = título do filme e Y= ano de lançamento
+lancamento(X,Y):- filme(X,_,_,Y,_).
+
+duracao(T,G,D,A,X) :- filme(T,G,D,A,X),X<100.
+epoca(T,G,D,A,X) :- filme(T,G,D,A,X), A>=2000, A=<2005.
+
