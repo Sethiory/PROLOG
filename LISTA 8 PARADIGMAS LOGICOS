@@ -96,7 +96,8 @@ dirige(X,Y):- filme(Y,_,X,_,_).
 genero(X,Y) :- filme(Y,X,_,_,_).
 %X = título do filme e Y= ano de lançamento
 lancamento(X,Y):- filme(X,_,_,Y,_).
-
-duracao(T,G,D,A,X) :- filme(T,G,D,A,X),X<100.
+%Z = duração limite
+duracao(Z,T,G,D,A,X) :- filme(T,G,D,A,X),X<Z.
 epoca(T,G,D,A,X) :- filme(T,G,D,A,X), A>=2000, A=<2005.
-
+classico(X):- lancamento(X,Y),Y<1980.
+%?-classico(X),genero(suspense,X)
